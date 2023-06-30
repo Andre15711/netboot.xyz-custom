@@ -32,6 +32,17 @@ boot || goto custom_exit
 echo Chains into another menu...
 chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom1.ipxe || goto custom
 
+:deb_install_vm-host3
+imgfree
+kernel http://ftp.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.magic preseed/url=http://10.10.255.254/vm-host3.cfg netcfg/disable_autoconfig
+initrd http://ftp.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+echo
+echo MD5sums:
+md5sum linux initrd.gz
+boot
+
+
+
 :custom_exit
 chain utils.ipxe
 exit
